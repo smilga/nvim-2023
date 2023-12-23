@@ -1,1 +1,6 @@
-vim.cmd('autocmd BufWritePost <buffer> :FormatWrite')
+vim.cmd([[
+augroup FormatAutogroup
+    autocmd!
+    autocmd BufWritePost <buffer> :FormatWrite
+augroup END
+]])

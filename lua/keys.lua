@@ -11,10 +11,17 @@ vim.keymap.set('n', '<leader>w', '<cmd>write<cr>', { desc = "Save File" })
 vim.keymap.set('n', '<leader>k', '<cmd>BD!<cr>', { desc = "Kill Buffer" })
 vim.keymap.set('n', '<leader>n', '<cmd>:NvimTreeToggle<cr>', { desc = "File Tree" })
 vim.keymap.set('n', '<leader>m', '<cmd>:NvimTreeFindFile<cr>', { desc = "File Tree Focus" })
-vim.keymap.set('n', '<leader>f', '<cmd>:Telescope find_files<cr>', { desc = "Find File" })
-vim.keymap.set('n', '<leader>l', function() require('telescope.builtin').buffers({sort_lastused=true}) end, { desc = "Buffers" })
+-- vim.keymap.set('n', '<leader>f', '<cmd>:Telescope find_files<cr>', { desc = "Find File" })
+vim.keymap.set('n', '<leader>f', function()
+    require('telescope.builtin').find_files({
+        find_command = { 'rg', '--files', '--iglob', '!.git', '--hidden'  },
+        previewer = false
+    })
+end, { desc = "Find Files" })
+vim.keymap.set('n', '<leader>l', function() require('telescope.builtin').buffers({ sort_lastused = true }) end,
+    { desc = "Buffers" })
 vim.keymap.set('n', '<leader>j', '<cmd>:Telescope jumplist<cr>', { desc = "Jumplist" })
-vim.keymap.set('n', '<leader>d', '<cmd>:Telescope diagnostics<cr>', { desc = "Diagnostics" })
+vim.keymap.set('n', '<leader>d', '<cmd>:TroubleToggle<cr>', { desc = "Trouble" })
 vim.keymap.set("n", "<leader>s", '<cmd>:Telescope live_grep<cr>', { desc = "Search" })
 vim.keymap.set("n", "<leader>t", '<cmd>:edit term://zsh<cr>', { desc = "Terminal" })
 vim.keymap.set("n", "<leader>o", '<cmd>:Oil<cr>', { desc = "File buffer 🤯" })
@@ -22,10 +29,10 @@ vim.keymap.set("n", "<leader>ec", '<cmd>:Telescope colorscheme<cr>', { desc = "C
 vim.keymap.set("n", "<leader>es", '<cmd>:PackerSync<cr>', { desc = "Sync Plugins" })
 
 local function on_list(options)
-  vim.fn.setqflist({}, ' ', options)
-  vim.api.nvim_command('cfirst')
+    vim.fn.setqflist({}, ' ', options)
+    vim.api.nvim_command('cfirst')
 end
-vim.keymap.set("n", "gd", function() vim.lsp.buf.definition({on_list=on_list}) end, opts)
+vim.keymap.set("n", "gd", function() vim.lsp.buf.definition({ on_list = on_list }) end, opts)
 vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
 vim.keymap.set("n", "gt", function() require('test-helpers').switch() end, opts)
 
