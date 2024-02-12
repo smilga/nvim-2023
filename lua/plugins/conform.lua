@@ -5,7 +5,7 @@ return {
 			formatters = {
 				ceslint = function(bufnr)
 					return {
-						command = vim.cmd(":EslintFixAll"),
+						command = vim.cmd("lua vim.lsp.buf.format()"),
 					}
 				end,
 				crustywind = function(bufnr)
