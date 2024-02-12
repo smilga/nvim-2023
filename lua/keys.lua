@@ -44,6 +44,8 @@ vim.keymap.set("n", "gt", function()
 end, opts)
 
 -- Git related shortkeys
+vim.keymap.set("n", "<leader>gg", "<cmd>:Git<cr>", { desc = "Git" })
+vim.keymap.set("n", "<leader>ggp", "<cmd>:Git push<cr>", { desc = "Git Push" })
 vim.keymap.set("n", "<leader>gc", "<cmd>:Telescope git_commits<cr>", { desc = "Commits" })
 vim.keymap.set("n", "<leader>gb", "<cmd>:Telescope git_branches<cr>", { desc = "Branches" })
 vim.keymap.set("n", "<leader>gp", "<cmd>:Gitsigns preview_hunk<cr>", { desc = "Preview Hunk" })
