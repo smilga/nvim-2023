@@ -24,7 +24,7 @@ return {
 					"phpactor",
 					"volar",
 					"tsserver",
-					"emmet_language_server",
+					"emmet_ls",
 					"eslint",
 					"tailwindcss",
 				},
@@ -36,8 +36,8 @@ return {
 					["tsserver"] = function()
 						return
 					end,
-					["emmet_language_server"] = function()
-						lspconfig.emmet_language_server.setup({
+					["emmet_ls"] = function()
+						lspconfig.emmet_ls.setup({
 							filetypes = {
 								"css",
 								"html",
@@ -46,6 +46,7 @@ return {
 								"sass",
 								"scss",
 								"typescriptreact",
+								"vue",
 							},
 						})
 					end,
