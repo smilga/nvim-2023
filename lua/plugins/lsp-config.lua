@@ -15,7 +15,6 @@ return {
 		},
 		config = function()
 			local lspconfig = require("lspconfig")
-			local volarAttached = false
 
 			require("mason-lspconfig").setup({
 				ensure_installed = {
@@ -34,7 +33,40 @@ return {
 						lspconfig[server_name].setup(server_config)
 					end,
 					["tsserver"] = function()
-						return
+						local mason_registry = require("mason-registry")
+						local vue_language_server_path = mason_registry
+							.get_package("vue-language-server")
+							:get_install_path() .. "/node_modules/@vue/language-server"
+
+						lspconfig.tsserver.setup({
+							init_options = {
+								plugins = {
+									{
+										name = "@vue/typescript-plugin",
+										location = vue_language_server_path,
+										languages = { "vue" },
+									},
+								},
+							},
+							filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+						})
+					end,
+					["volar"] = function()
+						lspconfig.volar.setup({})
+						-- lspconfig.volar.setup({
+						-- 	on_attach = function(client)
+						-- 		client.server_capabilities.documentFormattingProvider = false
+						-- 		client.server_capabilities.documentRangeFormattingProvider = false
+						-- 	end,
+						-- 	filetypes = {
+						-- 		"typescript",
+						-- 		"javascript",
+						-- 		"javascriptreact",
+						-- 		"typescriptreact",
+						-- 		"vue",
+						-- 		"json",
+						-- 	},
+						-- })
 					end,
 					["emmet_ls"] = function()
 						lspconfig.emmet_ls.setup({
@@ -62,22 +94,6 @@ return {
 								"javascriptreact",
 								"typescriptreact",
 								"vue",
-							},
-						})
-					end,
-					["volar"] = function()
-						lspconfig.volar.setup({
-							on_attach = function(client)
-								client.server_capabilities.documentFormattingProvider = false
-								client.server_capabilities.documentRangeFormattingProvider = false
-							end,
-							filetypes = {
-								"typescript",
-								"javascript",
-								"javascriptreact",
-								"typescriptreact",
-								"vue",
-								"json",
 							},
 						})
 					end,

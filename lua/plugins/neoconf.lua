@@ -1,4 +1,4 @@
 return {
-    'folke/neoconf.nvim',
-    setup = true
+	"folke/neoconf.nvim",
+	config = true,
 }
