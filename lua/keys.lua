@@ -28,6 +28,9 @@ vim.keymap.set("n", "<leader>t", "<cmd>:edit term://zsh<cr>", { desc = "Terminal
 vim.keymap.set("n", "<leader>o", "<cmd>:Oil<cr>", { desc = "File buffer 🤯" })
 vim.keymap.set("n", "<leader>ec", "<cmd>:Telescope colorscheme<cr>", { desc = "Colorschemes" })
 vim.keymap.set("n", "<leader>es", "<cmd>:PackerSync<cr>", { desc = "Sync Plugins" })
+vim.keymap.set("n", "<leader>aa", "<cmd>:CodeCompanionActions<cr>", { desc = "Actions" })
+vim.keymap.set("n", "<leader>ac", "<cmd>:CodeCompanionChat<cr>", { desc = "Chat" })
+vim.keymap.set("n", "<leader>at", "<cmd>:CodeCompanionToggle<cr>", { desc = "Toggle" })
 
 local function on_list(options)
 	vim.fn.setqflist({}, " ", options)
