@@ -32,6 +32,22 @@ return {
 						local server_config = {}
 						lspconfig[server_name].setup(server_config)
 					end,
+					["tailwindcss"] = function()
+						lspconfig.tailwindcss.setup({
+							filetypes = {
+								"html",
+								"css",
+								"scss",
+								"javascript",
+								"javascriptreact",
+								"typescript",
+								"typescriptreact",
+								"svelte",
+								"vue",
+								"gotmpl",
+							},
+						})
+					end,
 					["tsserver"] = function()
 						local mason_registry = require("mason-registry")
 						local vue_language_server_path = mason_registry
@@ -52,7 +68,12 @@ return {
 						})
 					end,
 					["volar"] = function()
-						lspconfig.volar.setup({})
+						lspconfig.volar.setup({
+							on_attach = function(client)
+								client.server_capabilities.documentFormattingProvider = false
+								client.server_capabilities.documentRangeFormattingProvider = false
+							end,
+						})
 						-- lspconfig.volar.setup({
 						-- 	on_attach = function(client)
 						-- 		client.server_capabilities.documentFormattingProvider = false
@@ -79,6 +100,7 @@ return {
 								"scss",
 								"typescriptreact",
 								"vue",
+								"gotmpl",
 							},
 						})
 					end,

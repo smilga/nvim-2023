@@ -4,7 +4,6 @@ return {
 	priority = 1000,
 	config = function()
 		require("plugins.catppuccin")
-
-		vim.cmd("colorscheme catppuccin-macchiato")
+		-- vim.cmd("colorscheme catppuccin-macchiato")
 	end,
 }
