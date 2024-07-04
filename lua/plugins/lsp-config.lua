@@ -74,20 +74,6 @@ return {
 								client.server_capabilities.documentRangeFormattingProvider = false
 							end,
 						})
-						-- lspconfig.volar.setup({
-						-- 	on_attach = function(client)
-						-- 		client.server_capabilities.documentFormattingProvider = false
-						-- 		client.server_capabilities.documentRangeFormattingProvider = false
-						-- 	end,
-						-- 	filetypes = {
-						-- 		"typescript",
-						-- 		"javascript",
-						-- 		"javascriptreact",
-						-- 		"typescriptreact",
-						-- 		"vue",
-						-- 		"json",
-						-- 	},
-						-- })
 					end,
 					["emmet_ls"] = function()
 						lspconfig.emmet_ls.setup({

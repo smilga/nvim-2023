@@ -18,10 +18,21 @@ return {
 						api_key = "cmd:cat " .. home .. "/open_api_key.txt",
 					},
 				}),
-				strategies = {
-					chat = "openai",
-					inline = "openai",
-				},
+				anthropic = require("codecompanion.adapters").use("anthropic", {
+					env = {
+						api_key = "cmd:cat " .. home .. "/anthropic_api_key.txt",
+					},
+					schema = {
+						model = {
+							default = "claude-3-5-sonnet-20240620",
+						},
+					},
+				}),
+			},
+			strategies = {
+				chat = "anthropic",
+				inline = "anthropic",
+				tool = "anthropic",
 			},
 		})
 	end,

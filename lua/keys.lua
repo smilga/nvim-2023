@@ -32,6 +32,10 @@ vim.keymap.set("n", "<leader>aa", "<cmd>:CodeCompanionActions<cr>", { desc = "Ac
 vim.keymap.set("n", "<leader>ac", "<cmd>:CodeCompanionChat<cr>", { desc = "Chat" })
 vim.keymap.set("n", "<leader>at", "<cmd>:CodeCompanionToggle<cr>", { desc = "Toggle" })
 
+vim.keymap.set("n", "<leader>pi", "<cmd>:Lazy install<cr>", { desc = "Install" })
+vim.keymap.set("n", "<leader>pu", "<cmd>:Lazy update<cr>", { desc = "Update" })
+vim.keymap.set("n", "<leader>pm", "<cmd>:MarkdownPreview<cr>", { desc = "Update" })
+
 local function on_list(options)
 	vim.fn.setqflist({}, " ", options)
 	vim.api.nvim_command("cfirst")
@@ -59,19 +63,27 @@ vim.keymap.set("n", "<leader>gl", "<cmd>:Gitsigns blame_line<cr>", { desc = "Lin
 vim.keymap.set("n", "<leader>gj", "<cmd>:Telescope git_status<cr>", { desc = "Status" })
 vim.keymap.set("n", "<leader>go", "<cmd>:DiffviewOpen<cr>", { desc = "Diff View Open" })
 vim.keymap.set("n", "<leader>gw", "<cmd>:DiffviewClose<cr>", { desc = "Diff View Close" })
--- Code related shortkeys prefixed with c
+
 vim.keymap.set("n", "<leader>cr", function()
 	vim.lsp.buf.rename()
 end, { desc = "Rename" })
+
 vim.keymap.set("n", "<leader>ca", function()
 	vim.lsp.buf.code_action()
 end, { desc = "Actions" })
+
 vim.keymap.set("n", "<leader>cf", function()
 	vim.lsp.buf.format()
 end, { desc = "Format" })
+
 vim.keymap.set("n", "K", function()
 	vim.lsp.buf.hover()
 end, { desc = "Documentation" })
+
+vim.keymap.set("n", "T", function()
+	vim.diagnostic.open_float()
+end, { desc = "Diagnostics float" })
+
 vim.keymap.set("n", "<leader>cu", "<cmd>:Telescope lsp_references<cr>", { desc = "References" })
 vim.keymap.set("n", "<leader>cd", "<cmd>:Telescope lsp_definitions<cr>", { desc = "Definitions" })
 vim.keymap.set("n", "<leader>cs", "<cmd>:Telescope lsp_document_symbols<cr>", { desc = "Symbols" })
@@ -97,7 +109,6 @@ vim.keymap.set("t", "<C-J>", "<C-\\><C-N><C-w>j")
 vim.keymap.set("t", "<C-K>", "<C-\\><C-N><C-w>k")
 vim.keymap.set("t", "<C-H>", "<C-\\><C-N><C-w>h")
 vim.keymap.set("t", "<C-L>", "<C-\\><C-N><C-w>l")
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 vim.keymap.set("n", "<C-J>", "<C-W><C-J>")
 vim.keymap.set("n", "<C-K>", "<C-W><C-K>")
@@ -108,3 +119,26 @@ vim.keymap.set({ "n", "x" }, "cp", '"+y')
 vim.keymap.set({ "n", "x" }, "cv", '"+p')
 
 vim.keymap.set("n", "<CR>", "<cmd>:noh<CR><CR>", { desc = "Clear Search" })
+
+vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', { desc = "Toggle Spectre" })
+vim.keymap.set(
+	"n",
+	"<leader>sw",
+	'<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
+	{ desc = "Search current word" }
+)
+vim.keymap.set(
+	"v",
+	"<leader>sw",
+	'<esc><cmd>lua require("spectre").open_visual()<CR>',
+	{ desc = "Search current word" }
+)
+vim.keymap.set(
+	"n",
+	"<leader>sp",
+	'<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
+	{ desc = "Search on current file" }
+)
+
+vim.api.nvim_set_keymap("n", "<C-=>", ":vertical resize +5<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-_>", ":vertical resize -5<CR>", { noremap = true, silent = true })
