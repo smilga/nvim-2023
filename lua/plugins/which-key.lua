@@ -8,6 +8,9 @@ return {
 
 		wk.register({
 			["<leader>"] = {
+				e = {
+					name = "Editor 🦾",
+				},
 				g = {
 					name = "GIT 🌶",
 				},

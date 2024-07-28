@@ -23,3 +23,5 @@ vim.api.nvim_create_autocmd("ExitPre", {
 		vim.cmd(":NvimTreeClose")
 	end,
 })
+
+vim.cmd("colorscheme duskfox")

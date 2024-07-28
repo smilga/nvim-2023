@@ -20,4 +20,10 @@ vim.opt.termguicolors = true
 vim.opt.pumheight = 15
 vim.opt.relativenumber = true
 
-vim.cmd('autocmd TermOpen * setlocal nonumber norelativenumber')
+vim.cmd("autocmd TermOpen * setlocal nonumber norelativenumber")
+
+vim.filetype.add({
+	extension = {
+		["http"] = "http",
+	},
+})
