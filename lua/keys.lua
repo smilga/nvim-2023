@@ -36,6 +36,10 @@ vim.keymap.set("n", "<leader>pi", "<cmd>:Lazy install<cr>", { desc = "Install" }
 vim.keymap.set("n", "<leader>pu", "<cmd>:Lazy update<cr>", { desc = "Update" })
 vim.keymap.set("n", "<leader>pm", "<cmd>:MarkdownPreview<cr>", { desc = "Update" })
 
+vim.keymap.set("n", "<leader>r", function()
+	require("rip-substitute").sub()
+end, { desc = "Substitute" })
+
 local function on_list(options)
 	vim.fn.setqflist({}, " ", options)
 	vim.api.nvim_command("cfirst")

@@ -27,3 +27,5 @@ vim.filetype.add({
 		["http"] = "http",
 	},
 })
+
+vim.diagnostic.config({ virtual_text = false })

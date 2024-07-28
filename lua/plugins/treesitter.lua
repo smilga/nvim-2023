@@ -22,6 +22,7 @@ return {
 				"yaml",
 				"gotmpl",
 				"http",
+				"regex",
 			},
 			-- Install parsers synchronously (only applied to `ensure_installed`)
 			sync_install = false,
