@@ -1,5 +1,3 @@
-vim.g.mapleader = ","
-
 -- vim.keymap.set('n', 'w', ':call camelcasemotion#Motion("w", v:count1, "n")<cr>')
 -- vim.keymap.set('n', 'b', ':call camelcasemotion#Motion("b", v:count1, "n")<cr>')
 -- vim.keymap.set('n', 'e', ':call camelcasemotion#Motion("e", v:count1, "n")<cr>')
@@ -10,7 +8,7 @@ vim.g.mapleader = ","
 vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", { desc = "Save File" })
 vim.keymap.set("n", "<leader>k", "<cmd>BD!<cr>", { desc = "Kill Buffer" })
 vim.keymap.set("n", "<leader>n", "<cmd>:NvimTreeToggle<cr>", { desc = "File Tree" })
-vim.keymap.set("n", "<leader>m", "<cmd>:NvimTreeFindFile<cr>", { desc = "File Tree Focus" })
+vim.keymap.set("n", "<leader>m", "<cmd>:NvimTreeFindFileToggle<cr>", { desc = "File Tree Focus" })
 -- vim.keymap.set('n', '<leader>f', '<cmd>:Telescope find_files<cr>', { desc = "Find File" })
 vim.keymap.set("n", "<leader>f", function()
 	require("telescope.builtin").find_files({
@@ -23,8 +21,8 @@ vim.keymap.set("n", "<leader>l", function()
 end, { desc = "Buffers" })
 vim.keymap.set("n", "<leader>j", "<cmd>:Telescope jumplist<cr>", { desc = "Jumplist" })
 vim.keymap.set("n", "<leader>d", "<cmd>:Trouble diagnostics toggle<cr>", { desc = "Trouble" })
-vim.keymap.set("n", "<leader>s", "<cmd>:Telescope live_grep<cr>", { desc = "Search" })
-vim.keymap.set("n", "<leader>t", "<cmd>:edit term://zsh<cr>", { desc = "Terminal" })
+vim.keymap.set("n", "<leader>s", require("helpers.telescope").search_with_cache(), { desc = "Search" })
+-- vim.keymap.set("n", "<leader>t", "<cmd>:edit term://zsh<cr>", { desc = "Terminal" })
 vim.keymap.set("n", "<leader>o", "<cmd>:Oil<cr>", { desc = "File buffer 🤯" })
 vim.keymap.set("n", "<leader>et", "<cmd>:Telescope colorscheme<cr>", { desc = "Theme" })
 vim.keymap.set("n", "<leader>ec", "<cmd>:NoNeckPain<cr>", { desc = "Center current" })
@@ -47,15 +45,11 @@ end
 vim.keymap.set("n", "gd", function()
 	vim.lsp.buf.definition({ on_list = on_list })
 end, opts)
-vim.keymap.set("n", "gi", function()
-	vim.lsp.buf.implementation()
-end, opts)
 vim.keymap.set("n", "gt", function()
 	require("test-helpers").switch()
 end, opts)
 
 -- Git related shortkeys
-vim.keymap.set("n", "<leader>gg", "<cmd>:Git<cr>", { desc = "Git" })
 vim.keymap.set("n", "<leader>gp", "<cmd>:Git push<cr>", { desc = "Git Push" })
 vim.keymap.set("n", "<leader>gc", "<cmd>:Telescope git_commits<cr>", { desc = "Commits" })
 vim.keymap.set("n", "<leader>gb", "<cmd>:Telescope git_branches<cr>", { desc = "Branches" })
@@ -67,13 +61,15 @@ vim.keymap.set("n", "<leader>gl", "<cmd>:Gitsigns blame_line<cr>", { desc = "Lin
 vim.keymap.set("n", "<leader>gj", "<cmd>:Telescope git_status<cr>", { desc = "Status" })
 vim.keymap.set("n", "<leader>go", "<cmd>:DiffviewOpen<cr>", { desc = "Diff View Open" })
 vim.keymap.set("n", "<leader>gw", "<cmd>:DiffviewClose<cr>", { desc = "Diff View Close" })
+vim.keymap.set("n", "<leader>gf", "<cmd>:Fugit2<cr>", { desc = "Fugit2 🎉" })
+vim.keymap.set("n", "<leader>gg", "<cmd>:Git<cr>", { desc = "Git" })
 
 vim.keymap.set("n", "<leader>cr", function()
 	vim.lsp.buf.rename()
 end, { desc = "Rename" })
 
 vim.keymap.set("n", "<leader>ca", function()
-	require("tiny-code-action").code_action()
+	vim.lsp.buf.code_action()
 end, { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>cf", function()
@@ -92,14 +88,16 @@ vim.keymap.set("n", "<leader>cu", "<cmd>:Telescope lsp_references<cr>", { desc =
 vim.keymap.set("n", "<leader>cd", "<cmd>:Telescope lsp_definitions<cr>", { desc = "Definitions" })
 vim.keymap.set("n", "<leader>cs", "<cmd>:Telescope lsp_document_symbols<cr>", { desc = "Symbols" })
 vim.keymap.set("n", "<leader>cn", "<cmd>:PhpActor new_class<cr>", { desc = "New PHP Class" })
-
-vim.keymap.set("i", "<C-J>", function()
+vim.keymap.set("n", "<leader>ci", function()
+	vim.lsp.buf.implementation()
+end, { desc = "implementations" })
+vim.keymap.set("i", "<M-J>", function()
 	require("copilot.suggestion").next()
 end, { desc = "Copilot" })
-vim.keymap.set("i", "<C-K>", function()
+vim.keymap.set("i", "<M-K>", function()
 	require("copilot.suggestion").prev()
 end, { desc = "Copilot" })
-vim.keymap.set("i", "<C-L>", function()
+vim.keymap.set("i", "<CR>", function()
 	require("copilot.suggestion").accept()
 end, { desc = "Copilot" })
 -- fixer/linter run
@@ -114,10 +112,10 @@ vim.keymap.set("t", "<C-K>", "<C-\\><C-N><C-w>k")
 vim.keymap.set("t", "<C-H>", "<C-\\><C-N><C-w>h")
 vim.keymap.set("t", "<C-L>", "<C-\\><C-N><C-w>l")
 
-vim.keymap.set("n", "<C-J>", "<C-W><C-J>")
-vim.keymap.set("n", "<C-K>", "<C-W><C-K>")
-vim.keymap.set("n", "<C-H>", "<C-W><C-H>")
-vim.keymap.set("n", "<C-L>", "<C-W><C-L>")
+vim.keymap.set("n", "<down>", "<C-W><C-J>")
+vim.keymap.set("n", "<up>", "<C-W><C-K>")
+vim.keymap.set("n", "<left>", "<C-W><C-H>")
+vim.keymap.set("n", "<right>", "<C-W><C-L>")
 
 vim.keymap.set({ "n", "x" }, "cp", '"+y')
 vim.keymap.set({ "n", "x" }, "cv", '"+p')
@@ -144,5 +142,5 @@ vim.keymap.set(
 	{ desc = "Search on current file" }
 )
 
-vim.api.nvim_set_keymap("n", "<C-=>", ":vertical resize +5<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-_>", ":vertical resize -5<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-+>", ":vertical resize +5<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-->", ":vertical resize -5<CR>", { noremap = true, silent = true })
