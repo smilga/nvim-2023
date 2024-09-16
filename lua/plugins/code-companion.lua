@@ -13,21 +13,13 @@ return {
 		local home = vim.fn.expand("$HOME")
 		require("codecompanion").setup({
 			adapters = {
-				openai = require("codecompanion.adapters").use("openai", {
-					env = {
-						api_key = "cmd:cat " .. home .. "/open_api_key.txt",
-					},
-				}),
-				anthropic = require("codecompanion.adapters").use("anthropic", {
-					env = {
-						api_key = "cmd:cat " .. home .. "/anthropic_api_key.txt",
-					},
-					schema = {
-						model = {
-							default = "claude-3-5-sonnet-20240620",
+				anthropic = function()
+					return require("codecompanion.adapters").extend("anthropic", {
+						env = {
+							api_key = "cmd:cat " .. home .. "/anthropic_api_key.txt",
 						},
-					},
-				}),
+					})
+				end,
 			},
 			strategies = {
 				chat = "anthropic",
